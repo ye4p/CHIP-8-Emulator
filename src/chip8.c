@@ -79,3 +79,13 @@ bool chip8_load_rom(Chip8 chip8, const char *path) {
     fclose(file_ptr);
     return true;
 }
+
+void chip_emulate_cycle(Chip8 *chip8) {
+    // Fetch opcode
+    chip8->opcode = chip8->memory[pc] << 8 | chip8->memory[pc + 1];
+
+    // Decode opcode
+    jump_table[opcode >> 12](chip8, opcode);
+
+
+}
