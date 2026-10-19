@@ -38,16 +38,44 @@ static const uint8_t chip8_font[80] = {
     0xF0, 0x80, 0xF0, 0x80, 0x80,
 };
 
-void chip8_init(Chip8 chip8) {
-    pc = 0x200;
-    opcode = 0;
-    I = 0;
-    sp = 0;
+void chip8_init(Chip8 *chip8) {
+    chip8->pc = 0x200;
+    chip8->opcode = 0;
+    chip8->I = 0;
+    chip8->sp = 0;
     
     for (size_t i = 0; i < 80; ++i) {
-        memory[i] = chip8_font[i];
+        chip8->memory[i] = chip8_font[i];
     }
     // mempcy(memory, chip8_font, 80); I think these are equivalent
-
     
+    memset(&chip8->framebuffer, 0, sizeof(uint8_t) * 64 * 32);
+    memset(&chip8->key, 0, sizeof(uint8_t) * 16);
+
+    chip8->delay_timer = 0;
+    chip8->sound_timer = 0;
+}
+
+bool chip8_load_rom(Chip8 chip8, const char *path) {
+    FILE *file_ptr = fopen(path, 'rb');
+    if (file_ptr == NULL) {
+        perror("Error opening ROM file");
+        return false;
+    }
+
+    fseek(file_ptr, 0L, SEEKEND);
+
+    uint64_t file_size = ftell(file_ptr);
+
+    rewind(file_ptr);
+
+
+    // for (size_t i = 0; i < file_size; ++i ) {
+    //     chip8->memory[i + 0x200] =  file_ptr[i];
+    // }
+    
+    size_t read = fread(chip8->memory[0x200], 1, file_size, file_ptr);
+
+    fclose(file_ptr);
+    return true;
 }

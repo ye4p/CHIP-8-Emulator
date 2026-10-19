@@ -26,8 +26,8 @@ typedef struct Chip8 {
 } Chip8;
 
 void chip8_init(Chip8* chip8);
-bool chip8_load_row(Chip8* chip8, const char* path);
-bool chip8_step(Chip8* chip8);
+bool chip8_load_rom(Chip8* chip8, const char* path);
+bool chip8_emulate_cycle(Chip8* chip8);
 void chip8_update_timers(Chip8 *chip8);
 void chip8_set_key(Chip8 *chip8, uint8_t key, bool pressed);
 
