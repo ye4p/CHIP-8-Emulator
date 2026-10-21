@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/dgolubkov/repos/chip8/graphics/sdl.c" "CMakeFiles/app.dir/graphics/sdl.c.o" "gcc" "CMakeFiles/app.dir/graphics/sdl.c.o.d"
   "/home/dgolubkov/repos/chip8/main.c" "CMakeFiles/app.dir/main.c.o" "gcc" "CMakeFiles/app.dir/main.c.o.d"
   "/home/dgolubkov/repos/chip8/src/chip8.c" "CMakeFiles/app.dir/src/chip8.c.o" "gcc" "CMakeFiles/app.dir/src/chip8.c.o.d"
+  "/home/dgolubkov/repos/chip8/src/instructions.c" "CMakeFiles/app.dir/src/instructions.c.o" "gcc" "CMakeFiles/app.dir/src/instructions.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

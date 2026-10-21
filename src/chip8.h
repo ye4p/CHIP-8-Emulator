@@ -1,10 +1,15 @@
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include "instructions.h"
+#include <SDL3/SDL_render.h>
 
 #ifndef CHIP8_H
 #define CHIP8_H
 
 #define CHIP8_MEMORY_SIZE 4096
+
+static char kbhit = ' ';
 
 typedef struct Chip8 {
     uint16_t opcode;
@@ -23,15 +28,17 @@ typedef struct Chip8 {
     uint8_t framebuffer[64 * 32];   // For displaying
     
     uint8_t key[16];
+
+    void *renderer_ptr;
 } Chip8;
 
-void chip8_init(Chip8* chip8);
+void chip8_init(Chip8* chip8, SDL_Renderer* sdl_ptr);
 bool chip8_load_rom(Chip8* chip8, const char* path);
 void chip8_emulate_cycle(Chip8* chip8);
 void chip8_update_timers(Chip8 *chip8);
 void chip8_set_key(Chip8 *chip8, uint8_t key, bool pressed);
 
-
+void chip8_render(Chip8 *chip8);
 
 
 #endif

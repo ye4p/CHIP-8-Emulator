@@ -1,12 +1,17 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <time.h>
 #include "src/chip8.h"
 #include "graphics/sdl.h"
 
+
 int main() {
+    srand(time(NULL));
     Chip8 chip8;
     void *ptr = NULL;
     printf("loading the window...\n");
+
+    chip8_init(&chip8, renderer);
     
     if (SDL_AppInit(&ptr) != SDL_APP_CONTINUE) {
         SDL_AppQuit(ptr, SDL_APP_FAILURE);
@@ -29,6 +34,10 @@ int main() {
             if (SDL_AppIterate(ptr) != SDL_APP_CONTINUE) {
                 running = false;
             }
+            for (size_t i = 0; i < 20; ++i) {
+                chip8.framebuffer[i] = 1;
+            }
+            chip8_render(&chip8);
         }
         
     }

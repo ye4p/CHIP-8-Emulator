@@ -38,7 +38,7 @@ static const uint8_t chip8_font[80] = {
     0xF0, 0x80, 0xF0, 0x80, 0x80,
 };
 
-void chip8_init(Chip8 *chip8) {
+void chip8_init(Chip8 *chip8, SDL_Renderer* sdl_ptr) {
     chip8->pc = 0x200;
     chip8->opcode = 0;
     chip8->I = 0;
@@ -54,16 +54,18 @@ void chip8_init(Chip8 *chip8) {
 
     chip8->delay_timer = 0;
     chip8->sound_timer = 0;
+
+    chip8->rendered_ptr = sdl_ptr;
 }
 
-bool chip8_load_rom(Chip8 chip8, const char *path) {
-    FILE *file_ptr = fopen(path, 'rb');
+bool chip8_load_rom(Chip8 *chip8, const char *path) {
+    FILE *file_ptr = fopen(path, "rb");
     if (file_ptr == NULL) {
         perror("Error opening ROM file");
         return false;
     }
 
-    fseek(file_ptr, 0L, SEEKEND);
+    fseek(file_ptr, 0L, SEEK_END);
 
     uint64_t file_size = ftell(file_ptr);
 
@@ -80,12 +82,20 @@ bool chip8_load_rom(Chip8 chip8, const char *path) {
     return true;
 }
 
-void chip_emulate_cycle(Chip8 *chip8) {
+void chip8_emulate_cycle(Chip8 *chip8) {
     // Fetch opcode
-    chip8->opcode = chip8->memory[pc] << 8 | chip8->memory[pc + 1];
+    chip8->opcode = chip8->memory[chip8->pc] << 8 | chip8->memory[chip8->pc + 1];
 
     // Decode opcode
-    jump_table[opcode >> 12](chip8, opcode);
+    jump_table[chip8->opcode >> 12](chip8, chip8->opcode);
 
+}
 
+void chip8_render(Chip8 *chip8) {
+    for (size_t i = 0; i < (64 * 32); ++i) {
+        int x = i % 64;
+        int y = i / 64;
+        if (chip8->framebuffer[i])
+            SDL_RenderPoint(chip8->renderer_ptr, (float) x, (float) y);
+    }
 }

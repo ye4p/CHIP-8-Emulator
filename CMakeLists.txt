@@ -10,7 +10,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 add_subdirectory(vendored/SDL EXCLUDE_FROM_ALL)
 
 # Create your game executable target as usual
-add_executable(app main.c graphics/sdl.c src/chip8.c)
+add_executable(app main.c graphics/sdl.c src/chip8.c src/instructions.c)
 
 # Link to the actual SDL3 library.
 target_link_libraries(app PRIVATE SDL3::SDL3)
