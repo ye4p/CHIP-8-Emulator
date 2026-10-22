@@ -38,7 +38,7 @@ static const uint8_t chip8_font[80] = {
     0xF0, 0x80, 0xF0, 0x80, 0x80,
 };
 
-void chip8_init(Chip8 *chip8, SDL_Renderer* sdl_ptr) {
+void chip8_init(Chip8 *chip8) {
     chip8->pc = 0x200;
     chip8->opcode = 0;
     chip8->I = 0;
@@ -54,8 +54,6 @@ void chip8_init(Chip8 *chip8, SDL_Renderer* sdl_ptr) {
 
     chip8->delay_timer = 0;
     chip8->sound_timer = 0;
-
-    chip8->rendered_ptr = sdl_ptr;
 }
 
 bool chip8_load_rom(Chip8 *chip8, const char *path) {
@@ -76,7 +74,7 @@ bool chip8_load_rom(Chip8 *chip8, const char *path) {
     //     chip8->memory[i + 0x200] =  file_ptr[i];
     // }
     
-    size_t read = fread(chip8->memory[0x200], 1, file_size, file_ptr);
+    size_t read = fread(chip8->memory + 0x200, 1, file_size, file_ptr);
 
     fclose(file_ptr);
     return true;
@@ -91,11 +89,8 @@ void chip8_emulate_cycle(Chip8 *chip8) {
 
 }
 
-void chip8_render(Chip8 *chip8) {
-    for (size_t i = 0; i < (64 * 32); ++i) {
-        int x = i % 64;
-        int y = i / 64;
-        if (chip8->framebuffer[i])
-            SDL_RenderPoint(chip8->renderer_ptr, (float) x, (float) y);
-    }
+void chip8_draw(Chip8 *chip8) {
+    // Rendering itself is happening in main 
+
+
 }

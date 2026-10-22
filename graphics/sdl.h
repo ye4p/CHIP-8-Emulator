@@ -1,5 +1,6 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include <stdio.h>
 
 #define WINDOW_WIDTH 64
 #define WINDOW_HEIGHT 32
@@ -15,7 +16,7 @@ SDL_AppResult SDL_AppInit(void **appstate);
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event);
 
 /* This function runs once per frame, and is the heart of the program. */
-SDL_AppResult SDL_AppIterate(void *appstate);
+SDL_AppResult SDL_AppIterate(void *appstate, uint8_t *framebuffer);
 
 /* This function runs once at shutdown. */
 void SDL_AppQuit(void *appstate, SDL_AppResult result);

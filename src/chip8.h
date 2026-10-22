@@ -28,17 +28,15 @@ typedef struct Chip8 {
     uint8_t framebuffer[64 * 32];   // For displaying
     
     uint8_t key[16];
-
-    void *renderer_ptr;
 } Chip8;
 
-void chip8_init(Chip8* chip8, SDL_Renderer* sdl_ptr);
+void chip8_init(Chip8* chip8);
 bool chip8_load_rom(Chip8* chip8, const char* path);
 void chip8_emulate_cycle(Chip8* chip8);
 void chip8_update_timers(Chip8 *chip8);
 void chip8_set_key(Chip8 *chip8, uint8_t key, bool pressed);
 
-void chip8_render(Chip8 *chip8);
+void chip8_draw(Chip8 *chip8);
 
 
 #endif

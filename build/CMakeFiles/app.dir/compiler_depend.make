@@ -71,6 +71,7 @@ CMakeFiles/app.dir/graphics/sdl.c.o: /home/dgolubkov/repos/chip8/graphics/sdl.c 
   /usr/include/inttypes.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdint.h \
+  /usr/include/stdio.h \
   /usr/include/string.h \
   /usr/include/strings.h \
   /usr/include/wchar.h \
@@ -84,15 +85,20 @@ CMakeFiles/app.dir/graphics/sdl.c.o: /home/dgolubkov/repos/chip8/graphics/sdl.c 
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
   /usr/include/x86_64-linux-gnu/bits/time64.h \
   /usr/include/x86_64-linux-gnu/bits/timesize.h \
   /usr/include/x86_64-linux-gnu/bits/types.h \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
   /usr/include/x86_64-linux-gnu/bits/typesizes.h \
   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
@@ -248,16 +254,51 @@ CMakeFiles/app.dir/main.c.o: /home/dgolubkov/repos/chip8/main.c \
 CMakeFiles/app.dir/src/chip8.c.o: /home/dgolubkov/repos/chip8/src/chip8.c \
   /home/dgolubkov/repos/chip8/src/chip8.h \
   /home/dgolubkov/repos/chip8/src/instructions.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_atomic.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_audio.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_begin_code.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_blendmode.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_camera.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_close_code.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_endian.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_error.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_events.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_gamepad.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_gpu.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_guid.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_iostream.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_joystick.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_keyboard.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_keycode.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_mouse.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_mutex.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_notification.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_pen.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_pixels.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_platform_defines.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_power.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_properties.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_rect.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_render.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_scancode.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_sensor.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_stdinc.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_surface.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_thread.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_touch.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_video.h \
   /usr/include/alloca.h \
   /usr/include/endian.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
+  /usr/include/inttypes.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
   /usr/include/string.h \
   /usr/include/strings.h \
+  /usr/include/wchar.h \
   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
   /usr/include/x86_64-linux-gnu/bits/byteswap.h \
   /usr/include/x86_64-linux-gnu/bits/endian.h \
@@ -291,12 +332,14 @@ CMakeFiles/app.dir/src/chip8.c.o: /home/dgolubkov/repos/chip8/src/chip8.c \
   /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
   /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
   /usr/include/x86_64-linux-gnu/bits/typesizes.h \
   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
@@ -316,14 +359,51 @@ CMakeFiles/app.dir/src/chip8.c.o: /home/dgolubkov/repos/chip8/src/chip8.c \
 CMakeFiles/app.dir/src/instructions.c.o: /home/dgolubkov/repos/chip8/src/instructions.c \
   /home/dgolubkov/repos/chip8/src/chip8.h \
   /home/dgolubkov/repos/chip8/src/instructions.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_atomic.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_audio.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_begin_code.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_blendmode.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_camera.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_close_code.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_endian.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_error.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_events.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_gamepad.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_gpu.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_guid.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_iostream.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_joystick.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_keyboard.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_keycode.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_mouse.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_mutex.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_notification.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_pen.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_pixels.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_platform_defines.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_power.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_properties.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_rect.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_render.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_scancode.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_sensor.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_stdinc.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_surface.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_thread.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_touch.h \
+  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_video.h \
   /usr/include/alloca.h \
   /usr/include/endian.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
+  /usr/include/inttypes.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
+  /usr/include/wchar.h \
   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
   /usr/include/x86_64-linux-gnu/bits/byteswap.h \
   /usr/include/x86_64-linux-gnu/bits/endian.h \
@@ -350,17 +430,21 @@ CMakeFiles/app.dir/src/instructions.c.o: /home/dgolubkov/repos/chip8/src/instruc
   /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
   /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
   /usr/include/x86_64-linux-gnu/bits/typesizes.h \
   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
@@ -394,15 +478,17 @@ CMakeFiles/app.dir/src/instructions.c.o: /home/dgolubkov/repos/chip8/src/instruc
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
 /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_sensor.h:
 
 /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_blendmode.h:
 
 /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_properties.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
 
 /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_touch.h:
 
@@ -554,6 +640,10 @@ CMakeFiles/app.dir/src/instructions.c.o: /home/dgolubkov/repos/chip8/src/instruc
 
 /usr/include/stdc-predef.h:
 
+/usr/include/stdio.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
+
 /usr/include/string.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
@@ -592,11 +682,21 @@ CMakeFiles/app.dir/src/instructions.c.o: /home/dgolubkov/repos/chip8/src/instruc
 
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
+/home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_joystick.h:
 
-/usr/include/stdio.h:
+/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
+
+/home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_mouse.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-least.h:
 
@@ -640,22 +740,6 @@ CMakeFiles/app.dir/src/instructions.c.o: /home/dgolubkov/repos/chip8/src/instruc
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
 
-/home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_joystick.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
-
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
 /usr/include/x86_64-linux-gnu/bits/time.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
-
-/home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_mouse.h:
-
-/usr/include/x86_64-linux-gnu/bits/wchar.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:

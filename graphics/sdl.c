@@ -11,7 +11,7 @@
 
 /* We will use this renderer to draw into this window every frame. */
 static SDL_Window *window = NULL;
-extern static SDL_Renderer *renderer = NULL;
+static SDL_Renderer *renderer = NULL;
 static Uint64 last_time = 0;
 
 /* (track everything as parallel arrays instead of a array of structs,
@@ -50,20 +50,29 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
 }
 
 /* This function runs once per frame, and is the heart of the program. */
-SDL_AppResult SDL_AppIterate(void *appstate)
+SDL_AppResult SDL_AppIterate(void *appstate, uint8_t* framebuffer)
 {
     const Uint64 now = SDL_GetTicks();
     const float elapsed = ((float) (now - last_time)) / 1000.0f;  /* seconds since last iteration */
     last_time = now;
 
     /* as you can see from this, rendering draws over whatever was drawn before it. */
-    // SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);  /* black, full alpha */
-    // SDL_RenderClear(renderer);  /* start with a blank canvas. */
-    // SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);  /* white, full alpha */
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);  /* black, full alpha */
+    SDL_RenderClear(renderer);  /* start with a blank canvas. */
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);  /* white, full alpha */
     // SDL_RenderPoints(renderer, points, SDL_arraysize(points));  /* draw all the points! */
 
     /* You can also draw single points with SDL_RenderPoint(), but it's
        cheaper (sometimes significantly so) to do them all at once. */
+
+    for (size_t i = 0; i < (64 * 32); ++i) {
+        int x = i % 64;
+        int y = i / 64;
+        if (framebuffer[i]) {
+            SDL_RenderPoint(renderer, (float) x, (float) y);
+            printf("Rendering point at %i and %i\n", x, y);
+        }
+    }
 
     SDL_RenderPresent(renderer);  /* put it all on the screen! */
 

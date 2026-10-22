@@ -8,10 +8,9 @@ void code0(Chip8 *chip8, uint16_t opcode) {
     opcode = opcode & 0xFFF;
     if (opcode == 0x00E0) {
         // Clear display;
-        for (size_t i = 0; i < (64 * 32); ++i) {
-            chip8->framebuffer[i] = 0;
-        }
-    } else if (opcode = 0x00EE) {
+        memset(chip8->framebuffer, 0, 64 * 32);
+
+   } else if (opcode = 0x00EE) {
         chip8->pc = chip8->stack[chip8->sp];
     }
     // There is also 0nnn operation, but it is deprecated

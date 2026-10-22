@@ -96,4 +96,9 @@ CMakeFiles/app.dir/graphics/sdl.c.o: \
  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_tray.h \
  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_version.h \
  /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_oldnames.h \
- /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_main.h
+ /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_main.h \
+ /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h
