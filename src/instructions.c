@@ -123,7 +123,21 @@ void codeC(Chip8 *chip8, uint16_t opcode) {
 }
 
 void codeD(Chip8 *chip8, uint16_t opcode) {
-    // TODO
+    int n = opcode & 0x000F;
+    int x = chip8->V[opcode & 0x0F00 >> 8];
+    int y = chip8->V[opcode & 0x00F0 >> 4];
+
+    bool flag = false; // If at least one pixel was erased.
+    for (size_t i_y = 0; i_y < n; ++i_y) {
+        for (size_t i_x = 0; i_x < 8; ++i_x) {
+            uint8_t sprite_byte = chip8->memory[chip8->I + i_y];
+            sprite_byte = sprite_byte & (1 << i_x);
+            if (chip8_xor_point(chip8, x + i_x, y + i_y, sprite_byte))
+                flag = true;
+        }
+    }
+
+    chip8->V[0xF] = flag;
 }
 
 void codeE(Chip8 *chip8, uint16_t opcode) {
@@ -157,7 +171,7 @@ void codeF(Chip8 *chip8, uint16_t opcode) {
             chip8->I += chip8->V[(opcode & 0x0F00) >> 8];
             break;
         case 0x29:
-            // TODO
+            chip8->I = chip8->V[(opcode & 0x0F00) >> 8] * 5;
             break;
         case 0x33:
             uint8_t v = chip8->V[(opcode & 0x0F00) >> 8];

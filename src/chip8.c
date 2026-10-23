@@ -89,8 +89,24 @@ void chip8_emulate_cycle(Chip8 *chip8) {
 
 }
 
-void chip8_draw(Chip8 *chip8) {
-    // Rendering itself is happening in main 
+bool chip8_xor_point(Chip8 *chip8, int x, int y, uint8_t sprite_pixel) {
+    while (x > 63) {
+        x -= 64;
+    }
+    while (x < 0) {
+        x += 64;
+    }
 
+    while (y > 31) {
+        y -= 32;
+    }
+    while (y < 0) {
+        y += 31;
+    }
 
+    int sq = y * 64 + x;
+    bool old = chip8->framebuffer[sq];
+    chip8->framebuffer[sq] = !chip8->framebuffer[sq] != !sprite_pixel;
+
+    return old && !chip8->framebuffer[sq];
 }
