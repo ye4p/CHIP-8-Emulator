@@ -70,7 +70,7 @@ SDL_AppResult SDL_AppIterate(void *appstate, uint8_t* framebuffer)
         int y = i / 64;
         if (framebuffer[i]) {
             SDL_RenderPoint(renderer, (float) x, (float) y);
-            printf("Rendering point at %i and %i\n", x, y);
+            // printf("Rendering point at %i and %i\n", x, y);
         }
     }
 

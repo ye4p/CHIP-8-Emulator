@@ -77,16 +77,22 @@ bool chip8_load_rom(Chip8 *chip8, const char *path) {
     size_t read = fread(chip8->memory + 0x200, 1, file_size, file_ptr);
 
     fclose(file_ptr);
+
+    printf("ROM loaded successfully\n");
     return true;
 }
 
 void chip8_emulate_cycle(Chip8 *chip8) {
     // Fetch opcode
     chip8->opcode = chip8->memory[chip8->pc] << 8 | chip8->memory[chip8->pc + 1];
+    chip8->pc += 2;
 
-    // Decode opcode
+    // Decode opcode and execute it
     jump_table[chip8->opcode >> 12](chip8, chip8->opcode);
 
+    printf("executed instruction %i %i %i %i\n", (chip8->opcode & 0xF000) >> 12, (chip8->opcode & 0x0F00) >> 8, (chip8->opcode & 0x00F0) >> 4, chip8->opcode & 0x000F);
+
+    chip8_update_timers(chip8);
 }
 
 bool chip8_xor_point(Chip8 *chip8, int x, int y, uint8_t sprite_pixel) {
@@ -109,4 +115,9 @@ bool chip8_xor_point(Chip8 *chip8, int x, int y, uint8_t sprite_pixel) {
     chip8->framebuffer[sq] = !chip8->framebuffer[sq] != !sprite_pixel;
 
     return old && !chip8->framebuffer[sq];
+}
+
+void chip8_update_timers(Chip8 *chip8) {
+    if (chip8->delay_timer) --chip8->delay_timer;
+    if (chip8->sound_timer) --chip8->sound_timer;
 }

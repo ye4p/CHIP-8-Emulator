@@ -124,14 +124,15 @@ void codeC(Chip8 *chip8, uint16_t opcode) {
 
 void codeD(Chip8 *chip8, uint16_t opcode) {
     int n = opcode & 0x000F;
-    int x = chip8->V[opcode & 0x0F00 >> 8];
-    int y = chip8->V[opcode & 0x00F0 >> 4];
+    int x = chip8->V[(opcode & 0x0F00) >> 8];
+    int y = chip8->V[(opcode & 0x00F0) >> 4];
 
     bool flag = false; // If at least one pixel was erased.
     for (size_t i_y = 0; i_y < n; ++i_y) {
         for (size_t i_x = 0; i_x < 8; ++i_x) {
             uint8_t sprite_byte = chip8->memory[chip8->I + i_y];
             sprite_byte = sprite_byte & (1 << i_x);
+            printf("drawing pixel at x: %i and y: %i\n", x + i_x, y +i_y);
             if (chip8_xor_point(chip8, x + i_x, y + i_y, sprite_byte))
                 flag = true;
         }

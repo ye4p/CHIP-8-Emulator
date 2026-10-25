@@ -189,6 +189,7 @@ CMakeFiles/app.dir/main.c.o: /home/dgolubkov/repos/chip8/main.c \
   /usr/include/stdlib.h \
   /usr/include/string.h \
   /usr/include/strings.h \
+  /usr/include/threads.h \
   /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
@@ -557,6 +558,8 @@ CMakeFiles/app.dir/src/instructions.c.o: /home/dgolubkov/repos/chip8/src/instruc
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
 /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_filesystem.h:
+
+/usr/include/threads.h:
 
 /home/dgolubkov/repos/chip8/vendored/SDL/include/SDL3/SDL_audio.h:
 

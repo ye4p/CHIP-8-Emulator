@@ -33,10 +33,9 @@ typedef struct Chip8 {
 void chip8_init(Chip8* chip8);
 bool chip8_load_rom(Chip8* chip8, const char* path);
 void chip8_emulate_cycle(Chip8* chip8);
-void chip8_update_timers(Chip8 *chip8);
-void chip8_set_key(Chip8 *chip8, uint8_t key, bool pressed);
 
 void chip8_draw(Chip8 *chip8);
 bool chip8_xor_point(Chip8 *chip8, int x, int y, uint8_t sprite_pixel); // Returns true if original pixel was 1 and became 0
 
+void chip8_update_timers(Chip8 *chip8);
 #endif
