@@ -43,12 +43,15 @@ void chip8_init(Chip8 *chip8) {
     chip8->opcode = 0;
     chip8->I = 0;
     chip8->sp = 0;
+   
+    // memset(chip8->memory, 0, 4096);
+
+    // for (size_t i = 0; i < 80; ++i) {
+    //     chip8->memory[i] = chip8_font[i];
+    // }
     
-    for (size_t i = 0; i < 80; ++i) {
-        chip8->memory[i] = chip8_font[i];
-    }
-    // mempcy(memory, chip8_font, 80); I think these are equivalent
-    
+    memcpy(chip8->memory, chip8_font, 80);    
+
     memset(&chip8->framebuffer, 0, sizeof(uint8_t) * 64 * 32);
     memset(&chip8->key, 0, sizeof(uint8_t) * 16);
 
@@ -69,11 +72,6 @@ bool chip8_load_rom(Chip8 *chip8, const char *path) {
 
     rewind(file_ptr);
 
-
-    // for (size_t i = 0; i < file_size; ++i ) {
-    //     chip8->memory[i + 0x200] =  file_ptr[i];
-    // }
-    
     size_t read = fread(chip8->memory + 0x200, 1, file_size, file_ptr);
 
     fclose(file_ptr);
@@ -88,7 +86,7 @@ void chip8_emulate_cycle(Chip8 *chip8) {
     chip8->pc += 2;
 
     // Decode opcode and execute it
-    jump_table[chip8->opcode >> 12](chip8, chip8->opcode);
+    jump_table[chip8->opcode >> 12](chip8);
 
     printf("executed instruction %i %i %i %i\n", (chip8->opcode & 0xF000) >> 12, (chip8->opcode & 0x0F00) >> 8, (chip8->opcode & 0x00F0) >> 4, chip8->opcode & 0x000F);
 
