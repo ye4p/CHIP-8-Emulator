@@ -20,9 +20,7 @@ static Uint64 last_time = 0;
 /* This function runs once at startup. */
 SDL_AppResult SDL_AppInit(void **appstate)
 {
-    int i;
-
-    SDL_SetAppMetadata("CHIP-8 Emulator", "1.0", "com.example.renderer-points");
+    SDL_SetAppMetadata("CHIP-8 Emulator", "1.0", "com.example.chip-8-emulator");
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
@@ -33,6 +31,7 @@ SDL_AppResult SDL_AppInit(void **appstate)
         SDL_Log("Couldn't create window/renderer: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
+
     SDL_SetRenderLogicalPresentation(renderer, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_LOGICAL_PRESENTATION_LETTERBOX);
 
     last_time = SDL_GetTicks();

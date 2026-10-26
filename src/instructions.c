@@ -3,15 +3,14 @@
 const op_func jump_table[16] = {
     code0, code1, code2, code3, code4, code5, code6, code7, code8, code9, codeA, codeB, codeC, codeD, codeE, codeF,
 };
-
 void code0(Chip8 *chip8) {
-    chip8->opcode = chip8->opcode & 0xFFF;
+    // chip8->opcode = chip8->opcode & 0xFFF;
     if (chip8->opcode == 0x00E0) {
         // Clear display;
         memset(chip8->framebuffer, 0, 64 * 32);
 
    } else if (chip8->opcode = 0x00EE) {
-        chip8->pc = chip8->stack[chip8->sp];
+        chip8->pc = chip8->stack[chip8->sp--];
     }
     // There is also 0nnn operation, but it is deprecated
 }

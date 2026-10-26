@@ -11,7 +11,7 @@ int main() {
     void *ptr = NULL;
     const char* programs[] = {
         "../tests/1-chip8-logo.ch8",
-        "../tests/2-imb-logo.ch8",
+        "../tests/2-ibm-logo.ch8",
         "../tests/3-corax+.ch8",
         "../tests/4-flags.ch8",
         "../tests/5-quirks.ch8",
@@ -35,7 +35,6 @@ int main() {
 
     struct timespec duration;
     duration.tv_sec = 0;
-    // duration.tv_nsec = 500000000;
     duration.tv_nsec = 16000000;
 
     chip8_init(&chip8);
@@ -62,13 +61,13 @@ int main() {
         }
 
         if (running) {
-
             chip8_emulate_cycle(&chip8);
 
             // for (size_t i = 0; i < 1500; ++i) {
             //     if (i % 2 == 0) continue;
             //         chip8.framebuffer[i] = 1;
             // } 
+
             if (SDL_AppIterate(ptr, chip8.framebuffer) != SDL_APP_CONTINUE) {
                 running = false;
             }
