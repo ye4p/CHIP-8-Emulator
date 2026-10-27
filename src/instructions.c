@@ -11,7 +11,7 @@ void code0(Chip8 *chip8) {
 
    } else if (chip8->opcode = 0x00EE) {
         chip8->pc = chip8->stack[chip8->sp--];
-    }
+   }
     // There is also 0nnn operation, but it is deprecated
 }
 
@@ -25,13 +25,13 @@ void code2(Chip8 *chip8) {
 }
 
 void code3(Chip8 *chip8) {
-    if (chip8->V[(chip8->opcode & 0x0F00) >> 8] == chip8->opcode & 0xFF) {
+    if (chip8->V[(chip8->opcode & 0x0F00) >> 8] == (chip8->opcode & 0xFF)) {
        chip8->pc += 2; 
     }
 }
 
 void code4(Chip8 *chip8) {
-    if (chip8->V[(chip8->opcode & 0x0F00) >> 8] != chip8->opcode & 0xFF) {
+    if (chip8->V[(chip8->opcode & 0x0F00) >> 8] != (chip8->opcode & 0xFF)) {
         chip8->pc += 2;
     }
 }
@@ -43,61 +43,62 @@ void code5(Chip8 *chip8) {
 }
 
 void code6(Chip8 *chip8) {
-    chip8->V[(chip8->opcode & 0x0F00) >> 8] = chip8->opcode & 0xFF; 
+    chip8->V[(chip8->opcode & 0x0F00) >> 8] = (chip8->opcode & 0xFF); 
 }
 
 void code7(Chip8 *chip8) {
-    chip8->V[(chip8->opcode & 0x0F00) >> 8] += chip8->opcode & 0xFF;
+    chip8->V[(chip8->opcode & 0x0F00) >> 8] += (chip8->opcode & 0xFF);
 }
 
 void code8(Chip8 *chip8) {
     switch (chip8->opcode & 0xF) {
-        case 0:
+        case 0x0:
             chip8->V[(chip8->opcode & 0x0F00) >> 8] = chip8->V[(chip8->opcode & 0x00F0) >> 4];
             break;
-        case 1:
+        case 0x1:
             chip8->V[(chip8->opcode & 0x0F00) >> 8] |= chip8->V[(chip8->opcode & 0x00F0) >> 4];
             break;
-        case 2:
+        case 0x2:
             chip8->V[(chip8->opcode & 0x0F00) >> 8] &= chip8->V[(chip8->opcode & 0x00F0) >> 4];
             break;
-        case 3:
+        case 0x3:
             chip8->V[(chip8->opcode & 0x0F00) >> 8] ^= chip8->V[(chip8->opcode & 0x00F0) >> 4];
             break;
-        case 4:
+        case 0x4:
             uint16_t res = chip8->V[(chip8->opcode & 0x0F00) >> 8] + chip8->V[(chip8->opcode & 0x00F0) >> 4];
-            if (res > 255) {
-                chip8->V[0xF] = 1;
-            }
             chip8->V[(chip8->opcode & 0x0F00) >> 8] = res;
+            chip8->V[0xF] = (res > 255) ? 1 : 0;
             break;
-        case 5:
-            if (chip8->V[(chip8->opcode & 0x0F00) >> 8] > chip8->V[(chip8->opcode & 0x00F0) >> 4]) {
+        case 0x5:
+            if (chip8->V[(chip8->opcode & 0x0F00) >> 8] > chip8->V[(chip8->opcode & 0x00F0) >> 4])
                 chip8->V[0xF] = 1;
-            }
+            else 
+                chip8->V[0xF] = 0;
             chip8->V[(chip8->opcode & 0x0F00) >> 8] -= chip8->V[(chip8->opcode & 0x00F0) >> 4];
             break;
-        case 6:
+        case 0x6:
             if (chip8->V[(chip8->opcode & 0x0F00) >> 8] & 0x1) {
                 chip8->V[0xF] = 1;
             } else {
                 chip8->V[0xF] = 0;
             }
+            chip8->V[(chip8->opcode & 0x0F00) >> 8] /= 2;
             break; 
-        case 7:
+        case 0x7:
             if (chip8->V[(chip8->opcode & 0x00F0) >> 4] > chip8->V[(chip8->opcode & 0x0F00) >> 8]) {
                 chip8->V[0xF] = 1;
             } else {
                 chip8->V[0xF] = 0;
             }
-            chip8->V[(chip8->opcode & 0x0F00) >> 8] = chip8->V[(chip8->opcode & 0x00F0) >> 4] - chip8->V[chip8->opcode << 4 >> 12];
+            chip8->V[(chip8->opcode & 0x0F00) >> 8] = chip8->V[(chip8->opcode & 0x00F0) >> 4] - chip8->V[(chip8->opcode & 0x0F00) >> 8];
             break;
         case 0xE:
-            if (chip8->V[(chip8->opcode & 0x0F00) >> 8] & 0b10000000) {
+            if (chip8->V[(chip8->opcode & 0x0F00) >> 8] & 0b10000000)
                 chip8->V[0xF] = 1;
-            } else {
-                chip8->V[(chip8->opcode & 0x0F00) >> 8] *= 2;
-            }
+            else
+                chip8->V[0xF] = 0;
+            
+            chip8->V[(chip8->opcode & 0x0F00) >> 8] *= 2;
             break;
     }
 }
@@ -122,16 +123,16 @@ void codeC(Chip8 *chip8) {
 }
 
 void codeD(Chip8 *chip8) {
-    int n = chip8->opcode & 0x000F;
     int x = chip8->V[(chip8->opcode & 0x0F00) >> 8];
     int y = chip8->V[(chip8->opcode & 0x00F0) >> 4];
+    int n = chip8->opcode & 0x000F;
 
     bool flag = false; // If at least one pixel was erased.
     for (size_t i_y = 0; i_y < n; ++i_y) {
         for (size_t i_x = 0; i_x < 8; ++i_x) {
             uint8_t sprite_byte = chip8->memory[chip8->I + i_y];
             sprite_byte = sprite_byte & (1 << (7 - i_x));
-            printf("drawing pixel at x: %i and y: %i, where initial x is %i and initial y is %i, and have %i bytes to read\n", x + i_x, y + i_y, x, y, n);
+            // printf("drawing pixel at x: %i and y: %i, where initial x is %i and initial y is %i, and have %i bytes to read\n", x + i_x, y + i_y, x, y, n);
             if (chip8_xor_point(chip8, x + i_x, y + i_y, sprite_byte))
                 flag = true;
         }
@@ -175,8 +176,11 @@ void codeF(Chip8 *chip8) {
             break;
         case 0x33:
             uint8_t v = chip8->V[(chip8->opcode & 0x0F00) >> 8];
-            for (size_t i = 2; i >= 0; --i) {
-                chip8->memory[chip8->I + i] = v % 10;
+            for (int i = 2; i >= 0; --i) { // I never thought that I will actually ever encounter this problem. 
+                                           // I thought it was case that people never essentially reach. 
+                                           // Yet here it is, using size_t that wraps to the biggest u64 value and tries to access that index instead of ending the loop.
+                uint8_t digit = v % 10;
+                chip8->memory[chip8->I + i] = digit;
                 v /= 10;
             }
             break;

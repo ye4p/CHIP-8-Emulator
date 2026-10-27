@@ -85,10 +85,11 @@ void chip8_emulate_cycle(Chip8 *chip8) {
     chip8->opcode = chip8->memory[chip8->pc] << 8 | chip8->memory[chip8->pc + 1];
     chip8->pc += 2;
 
+    printf("Trying to execute instruction instruction %x %i %i %i\n", (chip8->opcode & 0xF000) >> 12, (chip8->opcode & 0x0F00) >> 8, (chip8->opcode & 0x00F0) >> 4, chip8->opcode & 0x000F);
     // Decode opcode and execute it
     jump_table[chip8->opcode >> 12](chip8);
 
-    printf("executed instruction %i %i %i %i\n", (chip8->opcode & 0xF000) >> 12, (chip8->opcode & 0x0F00) >> 8, (chip8->opcode & 0x00F0) >> 4, chip8->opcode & 0x000F);
+    printf("executed instruction %x %x %x %x\n", (chip8->opcode & 0xF000) >> 12, (chip8->opcode & 0x0F00) >> 8, (chip8->opcode & 0x00F0) >> 4, chip8->opcode & 0x000F);
 
     chip8_update_timers(chip8);
 }
@@ -108,9 +109,13 @@ bool chip8_xor_point(Chip8 *chip8, int x, int y, uint8_t sprite_pixel) {
         y += 31;
     }
 
+    // printf("ended up drawing at x: %i and y: %i\n", x, y);
     int sq = y * 64 + x;
+    if (sq >= (64 * 32) || sq < 0) {
+        fprintf("trying to draw a pixel out of bounds: x=%i, y=%i\n", x, y);
+    }
     bool old = chip8->framebuffer[sq];
-    chip8->framebuffer[sq] = !chip8->framebuffer[sq] != !sprite_pixel;
+    chip8->framebuffer[sq] = (!chip8->framebuffer[sq]) != (!sprite_pixel);
 
     return old && !chip8->framebuffer[sq];
 }
