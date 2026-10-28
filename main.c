@@ -58,20 +58,31 @@ int main() {
                 running = false;
                 break;
             }
+
+            if (event.type == SDL_EVENT_TEXT_INPUT) {
+                // event.text.text to get text that was typed. It may be more than 1 character, so need to loop over every character there and add it to key pressed map.d
+                const char* text = event.text.text;
+
+                for (size_t i = 0; text[i] != '\0'; ++i) {
+                    int ind = chip8_key_to_index(text[i]);
+                    if (ind != -1) {
+                        chip8.key[ind] = 1;
+                        printf("CHARACTER %c WAS PRESSED\n", text[i]);
+                    }
+                }
+            }
         }
 
         if (running) {
-            chip8_update_key();
-
             chip8_emulate_cycle(&chip8);
-
-            // for (size_t i = 0; i < 1500; ++i) {
-            //     if (i % 2 == 0) continue;
-            //         chip8.framebuffer[i] = 1;
-            // } 
 
             if (SDL_AppIterate(ptr, chip8.framebuffer) != SDL_APP_CONTINUE) {
                 running = false;
+            }
+
+            // Clear key array.
+            for (size_t i = 0; i < 16; ++i) {
+                chip8.key[i] = 0;
             }
 
             thrd_sleep(&duration, NULL);

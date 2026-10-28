@@ -1,7 +1,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <conio.h>
+#include <stdio.h>
+#include <string.h>
 #include "instructions.h"
 #include <SDL3/SDL_render.h>
 
@@ -38,8 +39,8 @@ void chip8_emulate_cycle(Chip8* chip8);
 void chip8_draw(Chip8 *chip8);
 bool chip8_xor_point(Chip8 *chip8, int x, int y, uint8_t sprite_pixel); // Returns true if original pixel was 1 and became 0
 
-void chip8_update_key();
-char chip8_get_key();
+int chip8_key_to_index(char c);
+char chip8_index_to_key(int n);
 
 void chip8_update_timers(Chip8 *chip8);
 #endif

@@ -136,12 +136,24 @@ void codeD(Chip8 *chip8) {
 }
 
 void codeE(Chip8 *chip8) {
-    if (chip8->opcode & 0xFF == 0x9E) {
-        if (chip8_get_key() == chip8->V[(chip8->opcode & 0x0F00) >> 8]) {
+    if ((chip8->opcode & 0xFF) == 0x9E) {
+        // for(size_t i = 0; i < 16; ++i) {
+        //     if (chip8_index_to_key(i) == chip8->V[(chip8->opcode & 0x0F00) >> 8]) {
+        //         chip8->pc += 2;
+        //         break;
+        //     }
+        // }
+        if (chip8->key[chip8->V[(chip8->opcode & 0x0F00) >> 8]]) {
             chip8->pc += 2;
         }
-    } else {
-        if (chip8_get_key() != chip8->V[(chip8->opcode & 0x0F00) >> 8]) {
+    } else if ((chip8->opcode & 0xFF) == 0xA1) {
+        // for(size_t i = 0; i < 16; ++i) {
+        //     if (chip8->key[i] && (chip8_index_to_key(i) != chip8->V[(chip8->opcode & 0x0F00) >> 8])) {
+        //         chip8->pc += 2;
+        //         break;
+        //     }
+        // }
+        if (!chip8->key[chip8->V[(chip8->opcode & 0x0F00) >> 8]]) {
             chip8->pc += 2;
         }
     }
@@ -170,7 +182,7 @@ void codeF(Chip8 *chip8) {
             break;
         case 0x33:
             uint8_t v = chip8->V[(chip8->opcode & 0x0F00) >> 8];
-            for (int i = 2; i >= 0; --i) { // I never thought that I will actually ever encounter this problem. 
+            for (int i = 2; i >= 0; --i) { // I never thought that I would actually ever encounter this problem. 
                                            // I thought it was case that people never essentially reach. 
                                            // Yet here it is, using size_t that wraps to the biggest u64 value and tries to access that index instead of ending the loop.
                 uint8_t digit = v % 10;

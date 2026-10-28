@@ -1,7 +1,4 @@
 #include "chip8.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 static const uint8_t chip8_font[80] = {
     // 0
@@ -108,11 +105,11 @@ bool chip8_xor_point(Chip8 *chip8, int x, int y, uint8_t sprite_pixel) {
     while (y < 0) {
         y += 31;
     }
-
     // printf("ended up drawing at x: %i and y: %i\n", x, y);
     int sq = y * 64 + x;
     if (sq >= (64 * 32) || sq < 0) {
-        fprintf("trying to draw a pixel out of bounds: x=%i, y=%i\n", x, y);
+        fprintf(stderr, "trying to draw a pixel out of bounds: x=%i, y=%i\n", x, y);
+        exit(EXIT_FAILURE);
     }
     bool old = chip8->framebuffer[sq];
     chip8->framebuffer[sq] = (!chip8->framebuffer[sq]) != (!sprite_pixel);
@@ -125,11 +122,32 @@ void chip8_update_timers(Chip8 *chip8) {
     if (chip8->sound_timer) --chip8->sound_timer;
 }
 
-void chip8_update_key() {
-    if (_kbhit()) {
-        key_hit = getchar();
+int chip8_key_to_index(char c) {
+    int pressed;
+
+    if (c >= 48 && c <= 57) { // It's a digit
+        pressed = c - '0';
+        return pressed;
     }
+
+    if (c >= 65 && c <= 70) { // It's a character from A to F
+        pressed = (c - 'A') + 10; 
+        return pressed;
+    }   
+
+    pressed = -1;
+    return pressed;
 }
-char chip8_get_key() {
-    return key_hit;
+char chip8_index_to_key(int n) {
+    if (n < 0 || n >= 16) {
+        fprintf(stderr, "trying to get key that isn't hex: %i", n);
+        exit(EXIT_FAILURE);
+    }
+
+    if (n < 10) {
+        return (char)n;
+    }
+
+    // Return letter char:
+    return (char)(n - 10 + 65);
 }
