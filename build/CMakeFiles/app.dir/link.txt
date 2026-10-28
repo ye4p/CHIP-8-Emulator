@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/app.dir/main.c.o CMakeFiles/app.dir/graphics/sdl.c.o CMakeFiles/app.dir/src/chip8.c.o CMakeFiles/app.dir/src/instructions.c.o -o app  -Wl,-rpath,/home/dgolubkov/repos/chip8/build libSDL3.so.0.5.0 
