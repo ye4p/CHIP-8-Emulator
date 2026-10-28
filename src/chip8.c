@@ -124,3 +124,12 @@ void chip8_update_timers(Chip8 *chip8) {
     if (chip8->delay_timer) --chip8->delay_timer;
     if (chip8->sound_timer) --chip8->sound_timer;
 }
+
+void chip8_update_key() {
+    if (_kbhit()) {
+        key_hit = getchar();
+    }
+}
+char chip8_get_key() {
+    return key_hit;
+}

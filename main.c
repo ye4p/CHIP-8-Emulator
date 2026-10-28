@@ -61,6 +61,8 @@ int main() {
         }
 
         if (running) {
+            chip8_update_key();
+
             chip8_emulate_cycle(&chip8);
 
             // for (size_t i = 0; i < 1500; ++i) {

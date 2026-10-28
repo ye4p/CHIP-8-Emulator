@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <conio.h>
 #include "instructions.h"
 #include <SDL3/SDL_render.h>
 
@@ -9,7 +10,7 @@
 
 #define CHIP8_MEMORY_SIZE 4096
 
-static char kbhit = ' ';
+static char key_hit = ' ';
 
 typedef struct Chip8 {
     uint16_t opcode;
@@ -36,6 +37,9 @@ void chip8_emulate_cycle(Chip8* chip8);
 
 void chip8_draw(Chip8 *chip8);
 bool chip8_xor_point(Chip8 *chip8, int x, int y, uint8_t sprite_pixel); // Returns true if original pixel was 1 and became 0
+
+void chip8_update_key();
+char chip8_get_key();
 
 void chip8_update_timers(Chip8 *chip8);
 #endif

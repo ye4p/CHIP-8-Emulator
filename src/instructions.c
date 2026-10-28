@@ -64,42 +64,36 @@ void code8(Chip8 *chip8) {
         case 0x3:
             chip8->V[(chip8->opcode & 0x0F00) >> 8] ^= chip8->V[(chip8->opcode & 0x00F0) >> 4];
             break;
-        case 0x4:
-            uint16_t res = chip8->V[(chip8->opcode & 0x0F00) >> 8] + chip8->V[(chip8->opcode & 0x00F0) >> 4];
-            chip8->V[(chip8->opcode & 0x0F00) >> 8] = res;
-            chip8->V[0xF] = (res > 255) ? 1 : 0;
+        case 0x4: {
+            uint16_t sum = chip8->V[(chip8->opcode & 0x0F00) >> 8] + chip8->V[(chip8->opcode & 0x00F0) >> 4];
+            chip8->V[(chip8->opcode & 0x0F00) >> 8] = chip8->V[(chip8->opcode & 0x0F00) >> 8] + chip8->V[(chip8->opcode & 0x00F0) >> 4];
+            chip8->V[0xF] = (sum > 255) ? 1 : 0;
             break;
-        case 0x5:
-            if (chip8->V[(chip8->opcode & 0x0F00) >> 8] > chip8->V[(chip8->opcode & 0x00F0) >> 4])
-                chip8->V[0xF] = 1;
-            else 
-                chip8->V[0xF] = 0;
+        }
+        case 0x5: {
+            bool res = chip8->V[(chip8->opcode & 0x0F00) >> 8] >= chip8->V[(chip8->opcode & 0x00F0) >> 4];
             chip8->V[(chip8->opcode & 0x0F00) >> 8] -= chip8->V[(chip8->opcode & 0x00F0) >> 4];
+            chip8->V[0xF] = res;
             break;
-        case 0x6:
-            if (chip8->V[(chip8->opcode & 0x0F00) >> 8] & 0x1) {
-                chip8->V[0xF] = 1;
-            } else {
-                chip8->V[0xF] = 0;
-            }
+        }
+        case 0x6: {
+            bool res = chip8->V[(chip8->opcode & 0x0F00) >> 8] & 0x1;
             chip8->V[(chip8->opcode & 0x0F00) >> 8] /= 2;
+            chip8->V[0xF] = res;
             break; 
-        case 0x7:
-            if (chip8->V[(chip8->opcode & 0x00F0) >> 4] > chip8->V[(chip8->opcode & 0x0F00) >> 8]) {
-                chip8->V[0xF] = 1;
-            } else {
-                chip8->V[0xF] = 0;
-            }
+        }
+        case 0x7: {
+            bool res = chip8->V[(chip8->opcode & 0x00F0) >> 4] >= chip8->V[(chip8->opcode & 0x0F00) >> 8];
             chip8->V[(chip8->opcode & 0x0F00) >> 8] = chip8->V[(chip8->opcode & 0x00F0) >> 4] - chip8->V[(chip8->opcode & 0x0F00) >> 8];
+            chip8->V[0xF] = res;
             break;
-        case 0xE:
-            if (chip8->V[(chip8->opcode & 0x0F00) >> 8] & 0b10000000)
-                chip8->V[0xF] = 1;
-            else
-                chip8->V[0xF] = 0;
-            
+        }
+        case 0xE: {
+            bool res = chip8->V[(chip8->opcode & 0x0F00) >> 8] & 0b10000000;
             chip8->V[(chip8->opcode & 0x0F00) >> 8] *= 2;
+            chip8->V[0xF] = res;
             break;
+        }
     }
 }
 
@@ -143,11 +137,11 @@ void codeD(Chip8 *chip8) {
 
 void codeE(Chip8 *chip8) {
     if (chip8->opcode & 0xFF == 0x9E) {
-        if (kbhit == chip8->V[(chip8->opcode & 0x0F00) >> 8]) {
+        if (chip8_get_key() == chip8->V[(chip8->opcode & 0x0F00) >> 8]) {
             chip8->pc += 2;
         }
     } else {
-        if (kbhit != chip8->V[(chip8->opcode & 0x0F00) >> 8]) {
+        if (chip8_get_key() != chip8->V[(chip8->opcode & 0x0F00) >> 8]) {
             chip8->pc += 2;
         }
     }
