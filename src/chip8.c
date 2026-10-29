@@ -82,11 +82,11 @@ void chip8_emulate_cycle(Chip8 *chip8) {
     chip8->opcode = chip8->memory[chip8->pc] << 8 | chip8->memory[chip8->pc + 1];
     chip8->pc += 2;
 
-    printf("Trying to execute instruction instruction %x %i %i %i\n", (chip8->opcode & 0xF000) >> 12, (chip8->opcode & 0x0F00) >> 8, (chip8->opcode & 0x00F0) >> 4, chip8->opcode & 0x000F);
+    // printf("Trying to execute instruction instruction %x %i %i %i\n", (chip8->opcode & 0xF000) >> 12, (chip8->opcode & 0x0F00) >> 8, (chip8->opcode & 0x00F0) >> 4, chip8->opcode & 0x000F);
     // Decode opcode and execute it
     jump_table[chip8->opcode >> 12](chip8);
 
-    printf("executed instruction %x %x %x %x\n", (chip8->opcode & 0xF000) >> 12, (chip8->opcode & 0x0F00) >> 8, (chip8->opcode & 0x00F0) >> 4, chip8->opcode & 0x000F);
+    // printf("executed instruction %x %x %x %x\n", (chip8->opcode & 0xF000) >> 12, (chip8->opcode & 0x0F00) >> 8, (chip8->opcode & 0x00F0) >> 4, chip8->opcode & 0x000F);
 
     chip8_update_timers(chip8);
 }

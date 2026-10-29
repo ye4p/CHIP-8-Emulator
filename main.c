@@ -59,16 +59,21 @@ int main() {
                 break;
             }
 
-            if (event.type == SDL_EVENT_TEXT_INPUT) {
-                // event.text.text to get text that was typed. It may be more than 1 character, so need to loop over every character there and add it to key pressed map.d
-                const char* text = event.text.text;
+            if (event.type == SDL_EVENT_KEY_DOWN || event.type == SDL_EVENT_KEY_UP) {
+                int index = chip8_key_to_index((char)event.key.key);
 
-                for (size_t i = 0; text[i] != '\0'; ++i) {
-                    int ind = chip8_key_to_index(text[i]);
-                    if (ind != -1) {
-                        chip8.key[ind] = 1;
-                        printf("CHARACTER %c WAS PRESSED\n", text[i]);
-                    }
+                if (index != -1) {
+                    bool val = event.type == SDL_EVENT_KEY_DOWN;
+                    if (val)
+                        thrd_sleep(&duration, NULL);
+                    chip8.key[index] = val;
+                    printf("CHARACTER %c WAS PRESSED\n", (char)event.key.key);
+                }
+            }
+
+            if (event.type == SDL_EVENT_WINDOW_FOCUS_LOST) {
+                for(size_t i = 0; i < 16; ++i) {
+                    chip8.key[i] = 0;
                 }
             }
         }
