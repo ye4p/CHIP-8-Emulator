@@ -54,15 +54,19 @@ void code8(Chip8 *chip8) {
     switch (chip8->opcode & 0xF) {
         case 0x0:
             chip8->V[(chip8->opcode & 0x0F00) >> 8] = chip8->V[(chip8->opcode & 0x00F0) >> 4];
+            chip8->V[0xF] = 0;
             break;
         case 0x1:
             chip8->V[(chip8->opcode & 0x0F00) >> 8] |= chip8->V[(chip8->opcode & 0x00F0) >> 4];
+            chip8->V[0xF] = 0;
             break;
         case 0x2:
             chip8->V[(chip8->opcode & 0x0F00) >> 8] &= chip8->V[(chip8->opcode & 0x00F0) >> 4];
+            chip8->V[0xF] = 0;
             break;
         case 0x3:
             chip8->V[(chip8->opcode & 0x0F00) >> 8] ^= chip8->V[(chip8->opcode & 0x00F0) >> 4];
+            chip8->V[0xF] = 0;
             break;
         case 0x4: {
             uint16_t sum = chip8->V[(chip8->opcode & 0x0F00) >> 8] + chip8->V[(chip8->opcode & 0x00F0) >> 4];
@@ -192,12 +196,14 @@ void codeF(Chip8 *chip8) {
             break;
         case 0x55:
             for (size_t i = 0; i <= ((chip8->opcode & 0x0F00) >> 8); ++i) {
-                chip8->memory[chip8->I + i] = chip8->V[i];
+                chip8->memory[chip8->I] = chip8->V[i];
+                ++chip8->I;
             }
             break;
         case 0x65:
             for (size_t i = 0; i <= ((chip8->opcode & 0x0F00) >> 8); ++i) {
-                chip8->V[i] = chip8->memory[chip8->I + i];
+                chip8->V[i] = chip8->memory[chip8->I];
+                ++chip8->I;
             }
             break;
     }

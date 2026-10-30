@@ -54,6 +54,8 @@ void chip8_init(Chip8 *chip8) {
 
     chip8->delay_timer = 0;
     chip8->sound_timer = 0;
+
+    chip8->counter = 0;
 }
 
 bool chip8_load_rom(Chip8 *chip8, const char *path) {
@@ -82,11 +84,11 @@ void chip8_emulate_cycle(Chip8 *chip8) {
     chip8->opcode = chip8->memory[chip8->pc] << 8 | chip8->memory[chip8->pc + 1];
     chip8->pc += 2;
 
-    // printf("Trying to execute instruction instruction %x %i %i %i\n", (chip8->opcode & 0xF000) >> 12, (chip8->opcode & 0x0F00) >> 8, (chip8->opcode & 0x00F0) >> 4, chip8->opcode & 0x000F);
+    printf("Trying to execute instruction instruction %x %i %i %i\n", (chip8->opcode & 0xF000) >> 12, (chip8->opcode & 0x0F00) >> 8, (chip8->opcode & 0x00F0) >> 4, chip8->opcode & 0x000F);
     // Decode opcode and execute it
     jump_table[chip8->opcode >> 12](chip8);
 
-    // printf("executed instruction %x %x %x %x\n", (chip8->opcode & 0xF000) >> 12, (chip8->opcode & 0x0F00) >> 8, (chip8->opcode & 0x00F0) >> 4, chip8->opcode & 0x000F);
+    printf("instruc %x %x %x %x\n", (chip8->opcode & 0xF000) >> 12, (chip8->opcode & 0x0F00) >> 8, (chip8->opcode & 0x00F0) >> 4, chip8->opcode & 0x000F);
 
     chip8_update_timers(chip8);
 }
@@ -118,8 +120,10 @@ bool chip8_xor_point(Chip8 *chip8, int x, int y, uint8_t sprite_pixel) {
 }
 
 void chip8_update_timers(Chip8 *chip8) {
-    if (chip8->delay_timer) --chip8->delay_timer;
-    if (chip8->sound_timer) --chip8->sound_timer;
+    if ((chip8->counter++ % 12) == 0) {
+        if (chip8->delay_timer) --chip8->delay_timer;
+        if (chip8->sound_timer) --chip8->sound_timer;
+    }
 }
 
 int chip8_key_to_index(char c) {
@@ -130,8 +134,8 @@ int chip8_key_to_index(char c) {
         return pressed;
     }
 
-    if (c >= 65 && c <= 70) { // It's a character from A to F
-        pressed = (c - 'A') + 10; 
+    if (c >= 97 && c <= 102) { // It's a character from A to F
+        pressed = (c - 'a') + 10; 
         return pressed;
     }   
 
@@ -149,5 +153,5 @@ char chip8_index_to_key(int n) {
     }
 
     // Return letter char:
-    return (char)(n - 10 + 65);
+    return (char)(n - 10 + 97);
 }

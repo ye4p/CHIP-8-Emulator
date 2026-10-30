@@ -30,6 +30,8 @@ typedef struct Chip8 {
     uint8_t framebuffer[64 * 32];   // For displaying
     
     uint8_t key[16];
+
+    uint8_t counter;
 } Chip8;
 
 void chip8_init(Chip8* chip8);
