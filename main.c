@@ -24,7 +24,7 @@ int main() {
         "../games/Shooting Stars [Philip Baltzer, 1978].ch8",
         "../games/Animal Race [Brian Astle].ch8",
     };
-    uint64_t program_count = 13;
+    uint64_t program_count = sizeof(programs) / sizeof(char*);
 
     printf("List of available programs to run(0-8 are tests, 9+ are games): \n\n");
     
